@@ -1,0 +1,163 @@
+/* Заголовок */
+h1::first-letter {
+    color: red;
+}
+header {
+    font-family: sans-serif;
+}
+header p {
+    color: #999;
+}
+
+/* Слайдер */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+
+    width: 100%;
+    min-width: 800px;
+    max-width: 1920px;
+}
+.item .border,
+input {
+    display: none;
+}
+.slider {
+    width: 100%;
+    padding: 0 10%;
+    white-space: nowrap;
+
+    margin-left: 0;
+    transition-property: margin-left;
+    transition-duration: 500ms;
+    transition-timing-function: linear;
+
+}
+.item {
+    width: 20%;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    display: inline-block;
+    vertical-align: middle;
+
+    white-space: normal;
+
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 500ms;
+    transition-timing-function: linear;
+
+    position: relative;
+}
+img {
+    width: 100%;
+}
+#s1:checked ~ .slider .slide1,
+#s2:checked ~ .slider .slide2,
+#s3:checked ~ .slider .slide3,
+#s4:checked ~ .slider .slide4,
+#s5:checked ~ .slider .slide5,
+#s6:checked ~ .slider .slide6
+{
+    opacity: 1;
+}
+#s2:checked ~ .slider {
+    margin-left: -60%;
+}
+#s3:checked ~ .slider {
+    margin-left: -120%;
+}
+#s4:checked ~ .slider {
+    margin-left: -180%;
+}
+#s5:checked ~ .slider {
+    margin-left: -240%;
+}
+#s6:checked ~ .slider {
+    margin-left: -300%;
+}
+label {
+    font-size: 1.5em;
+    color: #999;
+    cursor: pointer;
+}
+label:before {
+    content: "\26AC";
+}
+#s1:checked ~ .controls #l1:before,
+#s2:checked ~ .controls #l2:before,
+#s3:checked ~ .controls #l3:before,
+#s4:checked ~ .controls #l4:before,
+#s5:checked ~ .controls #l5:before,
+#s6:checked ~ .controls #l6:before {
+    content: "\29BF";
+    color: rgb(45, 132, 224);
+}
+.controls {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+.controls li {
+    display: inline-block;
+}
+
+/* Карточка с описанием при наведении */
+.item:hover .border {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+
+    background: #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+
+    font: 0.7em/1 sans-serif;
+    color: #333;  
+}
+
+/* Модальное окно при клике */
+.lightbox  {
+    display: none;
+    
+    position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+}
+.lightbox::after {
+    content: "×";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0.5em 1em;
+    font: 3em/1 sans-serif;
+    color: #fff;
+}
+.lightbox img {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    
+    width: 70%;
+    max-width: 1000px;
+    min-width: 560px;
+}
+.lightbox:target {
+	outline: none;
+
+	display: block;
+}

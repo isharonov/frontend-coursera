@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    padding: 18px;
+}
+.container {
+    width: 984px;
+    padding: 0;
+    margin: 0 auto;
+    background-color: #f6f5f3;
+/* 
+    display: grid;
+    grid-template-columns: 82px repeat(10, 60px) 82px;
+    grid-column-gap: 20px;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas: 
+    "0 0 0 0 0 0 0 0 0 l l l"
+    "1 o o o o o o o o o o 2"
+    "3 3 v v v v v v v v 4 4"
+    "b b b b b b b b b b b b"
+    "5 t t t t t t t t t t 6";  */
+}
+/* .logo { grid-area: l; }
+.offroad { grid-area: o; }
+.video { grid-area: v; }
+.benefits { grid-area: b; }
+.tryNow { grid-area: t; }
+ */
+
+/* Шапка с логотипом */
+header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.logo { margin-right: 74px; }
+
+/* Слайдер */
+.offroad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.arrow {
+    background-color: #ffdb4a;
+    padding: 10px 15px;
+    margin: 25px 65px 0;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    box-shadow: 1px 1px 5px #ff5a00;
+    cursor: pointer;
+}
+.arrow:hover { opacity: .8; }
+blockquote { margin: 30px 0; }
+
+/* Блок с видео */
+.video {
+    width: 641px;
+    height: 361px;
+    margin: 60px auto;
+    background: url(img/Video_snapshot.png) no-repeat;
+
+    position: relative;
+}
+.video h2 {
+    width: 100%;
+    height: 50px;
+    margin: 0;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font: 29px Arial, sans-serif;
+    text-align: center;
+    color: #fff;
+    background: rgba(41,54,60,0.7);
+}
+.playButtonContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playButton {
+    background-color: #ffdb4a;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    box-shadow: 1px 0 5px #ff5a00;
+    padding: 32px 36px 32px 46px;
+}
+
+.playButton:hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
+/* Блок Способы выбора */
+.benefits div {
+    display: flex;
+    justify-content: space-between;
+}
+.benefits h2 { 
+    text-align: center; 
+    margin: 0 0 40px;
+}
+.benefits_item {
+    width: 246px;
+    box-sizing: border-box;
+    padding: 87px 0 0 42px;
+
+    position: relative;
+}
+.benefits_item img {
+    position: absolute;
+    top: 0;
+    left: 42px;
+}
+.benefits_item h3 { 
+    margin: 0; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Блок Попробовать! */
+.tryNow h2 {
+    text-align: center;
+    margin: 42px 0 42px 40px;
+}
+.tryNow div {
+    width: 100%;
+    padding: 35px 0 85px;
+    text-align: center;
+}
+
+.tryButton {
+    margin: 0;
+    font: 36px Arial, sans-serif;
+    background: linear-gradient(#ffe34a, #ffdb00);
+    padding: 16px 45px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.tryButton:hover {
+    background: linear-gradient(#ffe86b, #ffe12f);
+}
+
+/* Шрифты */
+blockquote { font: 36px Arial, sans-serif;}
+.benefits h2 { font: 47px Arial, sans-serif;}
+.benefits_item h3 { font: 30px Arial, sans-serif;}
+.benefits_item p { font: 16px Arial, sans-serif;}
+.tryNow h2 { font: 42px Arial, sans-serif; }

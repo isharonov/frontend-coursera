@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Бабуленькины котятки</title>
+        <style type="text/css">
+            /* Отступы, размеры и выравнивание элементов */
+            body, ul, h1, h3, p {
+                padding: 0;
+                margin: 0;
+            }
+            body { 
+                min-width: 800px;
+                max-width: 1280px;
+                margin: 0 auto;
+            }
+            body * { box-sizing: border-box; }
+            
+            ul { list-style-type: none; }
+
+            header { display: flex; }
+            h1 { 
+                margin: auto;
+                padding: 2rem;
+            }
+
+            .rating { 
+                padding: 0 1em 1em 1em; 
+                text-align: right;
+            }
+            .rating h3,
+            .rating ul { text-align: left; }
+            /* Цвета элементов */
+            body { background: #ebebeb; }
+            aside.breedMenu, 
+            .rating { background: #d9d9d9; }
+            h3 { color: #db0606; }
+            address { color: #1634a3; }
+
+            /* Шрифты */
+            h1 { font: bold 2.5rem sans-serif; }
+            h3 { 
+                font: 1.5rem/1.5 sans-serif;
+                text-transform: uppercase;
+            }
+            ul li { font: lighter 1.2rem/1.5 sans-serif; }
+            footer { font: 1rem/1.5 sans-serif; }
+            address { font-style: normal; }
+
+            /* На макете слева выводится меню по породам котиков, по центру — карточки котиков, а справа — рейтинг пород котиков  */
+            .layout {
+                display:flex;
+                flex-wrap: wrap;  
+            }
+            .layout > header,
+            .layout > footer    { flex-basis: 100%; }
+            .layout > aside     { flex-basis: 20%; }
+            .layout > section   { flex-basis: 60%; }
+
+            /* Подвал должен быть прибит к нижней границе окна браузера, если котики влезают в один экран */
+            .layout { min-height: 100vh; }
+
+            footer  { 
+                align-self: flex-end; 
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-top: 1px solid #5a5a5a;
+                margin-top: 1em;
+            }
+            footer p,
+            footer address { padding: 1rem; }
+            /* Фотки котиков должны располагаться строго по шаблону, указанному в макете (если фоток больше 8, то шаблон повторяется) */
+            
+            .showcase > ul {
+                display: flex;
+                flex-wrap: wrap;
+            } 
+            /* 2,6,10,14,18,22... */
+            .showcase li:nth-child(4n-2) { flex-basis: 66%; } 
+            /* все остальные котята */
+            .showcase li:not(:nth-child(4n-2)) { flex-basis: 33%; } 
+            /* кроме каждого восьмого */
+            .showcase li:nth-child(8n) { flex-basis: 100%;} 
+            img {
+                width: 100%;
+                object-fit: cover;
+            }
+
+            /* Левая колонка с меню всегда подстраивается под высоту контейнера с фотками, а правая (рейтинг) — по контенту внтури нее */
+            aside.breedMenu,
+            section.showcase { align-self: stretch; }
+            aside.rating { align-self: flex-start; }
+            
+
+            /* возможность сортировки рейтинга по убыванию баллов при помощи чекбокса */
+            .rating ul {
+                display: flex;
+                flex-direction: column;
+            }
+            #orderByScore:checked ~ ul > li[data-score="10"] { order: 10; }
+            #orderByScore:checked ~ ul > li[data-score="9"] { order: 9; }
+            #orderByScore:checked ~ ul > li[data-score="8"] { order: 8; }
+            #orderByScore:checked ~ ul > li[data-score="7"] { order: 7; }
+            #orderByScore:checked ~ ul > li[data-score="6"] { order: 6; }
+            #orderByScore:checked ~ ul > li[data-score="5"] { order: 5; }
+            #orderByScore:checked ~ ul > li[data-score="4"] { order: 4; }
+            #orderByScore:checked ~ ul > li[data-score="3"] { order: 3; }
+            #orderByScore:checked ~ ul > li[data-score="2"] { order: 2; }
+            #orderByScore:checked ~ ul > li[data-score="1"] { order: 1; }
+            #orderByScore:checked ~ ul { flex-direction: column-reverse; }
+
+            /* возможность выбрать породу в меню и отфильтровать котиков только этой породы */
+            header ~ input { display: none;}
+            .breedMenu label { 
+                cursor: pointer; 
+
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                padding: 1em;
+
+                border-bottom: 1px solid #fff;
+            }
+            .breedMenu li { border-bottom: 1px solid #5a5a5a; }
+
+            #breed1:checked ~ .showcase li:not([data-breed="breed1"]) img,
+            #breed2:checked ~ .showcase li:not([data-breed="breed2"]) img,
+            #breed3:checked ~ .showcase li:not([data-breed="breed3"]) img,
+            #breed4:checked ~ .showcase li:not([data-breed="breed4"]) img { opacity: 0.3; }
+            #breed1:checked ~ .breedMenu label[for="breed1"],
+            #breed2:checked ~ .breedMenu label[for="breed2"],
+            #breed3:checked ~ .breedMenu label[for="breed3"],
+            #breed4:checked ~ .breedMenu label[for="breed4"] {
+                background: #5a5a5a;
+                color: #fff;
+            }
+            
+            /* при наведении на фотку котика выводить плашку с именем и возрастом котика */
+            .showcase div {
+                position: relative;
+            }
+            .showcase div:hover:after {
+                display: block;
+                position: absolute;
+                left: 0;
+                bottom: 30%;
+
+                padding: 0.5em;
+                background: rgba(0,0,0,0.3);
+                color: #fff;
+
+                content: attr(data-name);
+            }
+
+            /* цвет рейтинга должен зависеть от его значения */
+            .rating ul li {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .rating ul li:before {
+                display: block;
+                flex-basis: 100%;
+
+                content: attr(data-breed);
+            }
+            .rating ul li:after {
+                display: block;
+                flex-basis: 20%;
+
+                font-weight: bold;
+                text-align: right;
+
+                content: attr(data-score);
+            }
+            
+            .rating li[data-score="10"] .graph,
+            .rating li[data-score="9"] .graph {
+                flex-basis: 80%;
+                background: green;
+            }
+            .rating li[data-score="8"] .graph,
+            .rating li[data-score="7"] .graph,
+            .rating li[data-score="6"] .graph,
+            .rating li[data-score="5"] .graph {
+                flex-basis: 60%;
+                background: yellow;
+            }
+            .rating li[data-score="4"] .graph,
+            .rating li[data-score="3"] .graph,
+            .rating li[data-score="2"] .graph,
+            .rating li[data-score="1"] .graph {
+                flex-basis: 40%;
+                background: red;
+            }
+            .rating ul li .graph:after {
+                content: ".";
+                color: transparent;
+                display: block;
+                background: linear-gradient(to right, transparent , #fff);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <header>
+                <h1>Бабуленькины котятки</h1>
+            </header>
+                <input type="radio" id="breed1" name="selectByBreed">
+                <input type="radio" id="breed2" name="selectByBreed">
+                <input type="radio" id="breed3" name="selectByBreed">
+                <input type="radio" id="breed4" name="selectByBreed">
+                <aside class="breedMenu">
+                    <ul>
+                        <li><label for="breed1">Абиссинская</label></li>
+                        <li><label for="breed2">Британская</label></li>
+                        <li><label for="breed3">Русская голубая</label></li>
+                        <li><label for="breed4">Сиамская</label></li>
+                    </ul>
+                </aside>
+                <section class="showcase">
+                    <ul>
+                        <li data-breed="breed1"><div data-name="Гоша, 4 года"><img src="images/cat01.png" alt="cat01"></div></li>
+                        <li data-breed="breed2"><div data-name="Йоша, 3 года"><img src="images/cat02.png" alt="cat02"></div></li>
+                        <li data-breed="breed3"><div data-name="Цоша, 2 года"><img src="images/cat03.png" alt="cat03"></div></li>
+                        <li data-breed="breed4"><div data-name="Коша, 1 года"><img src="images/cat04.png" alt="cat04"></div></li>
+                        <li data-breed="breed1"><div data-name="Еоша, 2 года"><img src="images/cat05.png" alt="cat05"></div></li>
+                        <li data-breed="breed2"><div data-name="Ноша, 3 года"><img src="images/cat06.png" alt="cat06"></div></li>
+                        <li data-breed="breed3"><div data-name="Шоша, 4 года"><img src="images/cat07.png" alt="cat07"></div></li>
+                        <li data-breed="breed4"><div data-name="Фоша, 2 года"><img src="images/cat08.png" alt="cat08"></div></li>
+                        <li data-breed="breed1"><div data-name="Гоша, 4 года"><img src="images/cat01.png" alt="cat01"></div></li>
+                        <li data-breed="breed2"><div data-name="Йоша, 3 года"><img src="images/cat02.png" alt="cat02"></div></li>
+                        <li data-breed="breed3"><div data-name="Цоша, 2 года"><img src="images/cat03.png" alt="cat03"></div></li>
+                        <li data-breed="breed4"><div data-name="Коша, 1 года"><img src="images/cat04.png" alt="cat04"></div></li>
+                        <li data-breed="breed1"><div data-name="Еоша, 2 года"><img src="images/cat05.png" alt="cat05"></div></li>
+                        <li data-breed="breed2"><div data-name="Ноша, 3 года"><img src="images/cat06.png" alt="cat06"></div></li>
+                        <li data-breed="breed3"><div data-name="Шоша, 4 года"><img src="images/cat07.png" alt="cat07"></div></li>
+                        <li data-breed="breed4"><div data-name="Фоша, 2 года"><img src="images/cat08.png" alt="cat08"></div></li>
+                    </ul>
+                </section>
+                <aside class="rating">
+                    <h3>Рейтинг</h3>
+                    <label for="orderByScore">по убыванию</label><input type="checkbox" id="orderByScore">
+                    <ul>
+                        <li data-score="9" data-breed="Абиссинская"><span class="graph"></span></li>
+                        <li data-score="8" data-breed="Британская"><span class="graph"></span></li>
+                        <li data-score="10" data-breed="Русская голубая"><span class="graph"></span></li>
+                        <li data-score="4" data-breed="Сиамская"><span class="graph"></span></li>
+                    </ul>
+                </aside>
+            <footer>
+                <p>&copy; ООО Бабуленькины котятки, 2019</p>
+                <address>Наш адрес: улица Котовая, дом 5</address>
+            </footer>
+        </div>
+    </body>
+</html>

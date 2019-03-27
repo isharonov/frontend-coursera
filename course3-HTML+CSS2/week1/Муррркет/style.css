@@ -1,0 +1,207 @@
+/* Специально собранный шрифт из двух символов для отображения звездочек рейтинга */
+@font-face {
+    font-family: 'icomoon';
+    src:  url('fonts/icomoon.eot?62eld3');
+    src:  url('fonts/icomoon.eot?62eld3#iefix') format('embedded-opentype'),
+      url('fonts/icomoon.ttf?62eld3') format('truetype'),
+      url('fonts/icomoon.woff?62eld3') format('woff'),
+      url('fonts/icomoon.svg?62eld3#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+/*
+Коды символов:
+Полузвезда: "\e901"
+Полная звезда: "\e900"
+*/
+
+/* Вывод списком */
+#listView:checked ~ .item > * {
+    display: inline-block;
+    width: 33%;
+    padding: 0 5%;
+    box-sizing: border-box;
+    vertical-align: top;
+}
+#listView:checked ~ .item {
+    margin: 5em 0;
+    white-space: nowrap;
+}
+#listView:checked ~ .item p:last-child {
+    white-space: normal;
+}
+#listView:checked ~ .item header {
+    min-width: 30ch;
+}
+p img {
+    width: 100%;
+}
+
+/* Вывод плитками */
+#boxView:checked ~ .item {
+    display: inline-block;
+    width: 30ch;
+    vertical-align: top;
+    margin: 50vh 5ch 0 5ch;
+    padding: 0;
+    position: relative;
+}
+/* Выравниваем по нижнему краю изображения */
+#boxView:checked ~ .item > p:first-child {
+    position: absolute;
+    top: -50vh;
+    left: 0;
+    height: 50vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+#boxView:checked ~ .item > p:first-child > img {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left:0;
+}
+
+/* Обрезаем длинные имена котиков */
+h2 {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Стили для header'a магазина */
+h1::first-letter {
+    color: red;
+}
+h1 {
+    margin-bottom: 0;
+}
+body > header p,
+.catalog > label {
+    font: 1em/1.5 sans-serif;
+    color: #999;
+}
+p {
+    margin: 0;
+}
+
+/* Стили заголовка котика */
+h2 {
+    font: 1.3em/1.5 sans-serif;
+    margin: 0;
+}
+h2 a, h2 a:visited {
+    color: rgb(85,63,168);
+}
+
+/* Стили для категории котика */
+nav ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav ol li {
+    display: inline-block;
+}
+nav ol li:first-child a:after {
+    display: inline-block;
+    content: "-";
+    padding: 0 1ch;
+}
+nav ol li a {
+    font: 0.7em/1 sans-serif;
+}
+nav ol li a, nav ol li a:visited {
+    color: rgb(93,93,95);
+}
+
+/*  Стили для новой цены */
+.price {
+    font: bold 1.5em/1.2 sans-serif;
+    background: none;
+    color: rgb(162,0,0);
+}
+
+/*  Стили для старой цены */
+.oldPrice {
+    font: 1.2em/1.2 sans-serif;
+    color: rgb(70,70,72);
+}
+
+/*  Стили для описания котика */
+.item p {
+    font: 0.8em/1.2 sans-serif;
+    color: rgb(98,98,99);
+}
+
+/* Эффекты при наведении курсора:
+На имя и категорию*/
+h2 a:hover, 
+h2 a:visited:hover,
+nav ol li a:hover,
+nav ol li a:visited:hover {
+    color: red;
+}
+/* На картинку и плитку в целом */
+.item:hover img {
+    opacity: 0.7;
+}
+
+/* Виджет для рейтинга */
+.rate {
+    display: inline-block;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    
+}
+/* Скрываем радио-кнопки */
+.rate > input {
+    display: none;
+}
+/* Располагаем лэйблы по возрастанию слева направо */
+.rate > label {
+    float: right;
+}
+/* Добавляем полную звездочку белого цвета с тенью в лэйблы */
+.rate > label:before {
+    display: inline-block;
+    font-size: 1.1rem;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Для улучшения рендеринга шрифта */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    content: "\e900"; /* Полная звезда */
+    color: white;
+    text-shadow: red 0 0 1px;
+}
+/* Располагаем полузвездочку поверх полной звездочки и убираем тень, чтобы замаскировать её */
+.rate .half:before {
+    content: "\e901"; /* Полузвезда */
+    position: absolute;
+    padding-right: 0;
+    text-shadow: none;
+}
+/* Окрашиваем звездочки при событиях Click + hover */
+input:checked ~ label:before, /* Для события checked: окрашиваем выбранную и все предшествующие звездочки */
+label:hover:before, label:hover ~ label:before { /* Для события hover: окрашиваем звездочку под курсором и все предшествующие звездочки */
+    color: rgb(255, 208, 0);
+}
+
+/* Событие hover, если рейтинг уже выставлен */
+input:checked + label:hover:before, input:checked ~ label:hover:before, 
+input:checked ~ label:hover ~ label:before, 
+label:hover ~ input:checked ~ label:before { color: red;  } 
