@@ -1,0 +1,56 @@
+body {
+    background: #CFD0CF;
+}
+h1 {
+    text-align: center;
+    font: 42px/47px Arial, sans-serif;
+    color: #434344;
+    margin: 40px 0px;
+}
+.playground {
+    width: 595px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, 130px);
+    grid-template-rows: repeat(3, 130px);
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+}
+.card {
+    width: 120px;
+    height: 120px;
+    border: 5px solid #fff;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+
+    perspective: 600px;  
+    transform-style: preserve-3d;
+    transition: .3s linear;
+}
+.active {
+    transform: rotateY(180deg);
+}
+.side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+.front {
+    font-size: 75px;
+    background: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 2;
+    transform: rotateY(-180deg);
+}
+.back {
+    background: linear-gradient(45deg, #22AB93, #19668D);
+
+    transform: rotateY(0deg);
+}
