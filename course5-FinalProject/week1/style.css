@@ -58,3 +58,15 @@ h1 {
 
     transform: rotateY(0deg);
 }
+.match {
+    border-color: #5AD66F;
+}
+.mismatch {
+    border-color: #F44336;
+}
+.match .front {
+    background: #5AD66F;
+}
+.mismatch .front {
+    background: #F44336;
+}
