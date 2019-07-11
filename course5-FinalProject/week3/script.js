@@ -35,8 +35,8 @@ function Game() {
     this.timer = document.getElementById('timer');
     this.duration = this.timer.dataset.duration;
     this.messages = {
-        win: '<div class="messageBox"><p class="messageText"><span>W</span><span>i</span><span>n</span></p><button class="messageButton">Play again</button></div>',
-        lose: '<div class="messageBox"><p class="messageText"><span>L</span><span>o</span><span>s</span><span>e</span></p><button class="messageButton">Try again</button></div>'
+        win: '<div class="messageBox"><h2 class="messageText"><span>W</span><span>i</span><span>n</span></h2><button class="messageButton">Play again</button></div>',
+        lose: '<div class="messageBox"><h2 class="messageText"><span>L</span><span>o</span><span>s</span><span>e</span></h2><button class="messageButton">Try again</button></div>'
     }
 
     //Параметры партии
