@@ -8,9 +8,8 @@ function validateForm(params) {
     }
 
     function checkInputs(element) {
-
         //Обязательность поля
-        if (element.hasAttribute('data-required')) {
+        if (element.dataset.required == "") {
             if (!element.value) {
                 addErrorClass(element);
             };
@@ -24,7 +23,7 @@ function validateForm(params) {
                 }; 
                 break;
             case 'number': //Валидатор number
-                if (!/^[0-9]*$/.test(element.value)) {
+                if (!/^-?[0-9]*$/.test(element.value)) {
                     addErrorClass(element);
                 };
                 if (parseInt(element.value) > parseInt(element.dataset.validatorMax) || 
