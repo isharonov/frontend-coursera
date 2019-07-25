@@ -28,7 +28,12 @@ h1 {
     width: 130px;
     height: 130px;
 
-    perspective: 600px;  
+    -webkit-perspective: 600px; 
+    -moz-perspective: 600px; 
+    perspective: 600px;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
 .side {
@@ -42,7 +47,12 @@ h1 {
     border-radius: 9px;
     box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+
+    -webkit-transition: transform .3s linear;
+    -moz-transition: transform .3s linear;
     transition: transform .3s linear;
 }
 .front {
@@ -52,6 +62,8 @@ h1 {
     justify-content: center;
     align-items: center;
 
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
     transform: rotateY(-180deg);
 }
 .back {
@@ -59,9 +71,13 @@ h1 {
     border: 5px solid #fff;
 }
 .rotate > .front {
+    -webkit-transform: none;
+    -moz-transform: none;
     transform: none;
 }
 .rotate > .back {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 .match > .front {
