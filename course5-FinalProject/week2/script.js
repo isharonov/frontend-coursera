@@ -28,7 +28,7 @@ function Game() {
     this.playground = document.getElementById('playground');
     this.values = memoji.concat(memoji);
     this.cards = {};
-    this.cardsSelected = { length: 0 };
+    this.cardsSelected = [];
 }
 Game.prototype.start = function() {
     
@@ -66,13 +66,11 @@ Game.prototype.start = function() {
                 if (self.cardsSelected.length == 0) {
 
                     self.cardsSelected[0] = target;
-                    self.cardsSelected.length ++ ;
                  
                 //1.2 - Если есть пара для сравнения
                 } else if (self.cardsSelected.length == 1) {
 
                     self.cardsSelected[1] = target;
-                    self.cardsSelected.length ++ ;
                     
                     //Проверяем 2 открытые карточки
                     if (self.cardsSelected[0].value == self.cardsSelected[1].value){
@@ -80,7 +78,7 @@ Game.prototype.start = function() {
                         self.cardsSelected[0].node.classList.add('match');
                         self.cardsSelected[1].node.classList.add('match');
 
-                        self.cardsSelected = { length: 0 };
+                        self.cardsSelected = [];
 
                     } else {
 
@@ -97,12 +95,11 @@ Game.prototype.start = function() {
                 self.cardsSelected[0].node.classList.remove('mismatch');
                 self.cardsSelected[1].node.classList.remove('mismatch');
 
-                self.cardsSelected = { length: 0 };
+                self.cardsSelected = [];
 
                 target.node.classList.add('rotate');
 
                 self.cardsSelected[0] = target;
-                self.cardsSelected.length ++ ;
                 
             }
         }
